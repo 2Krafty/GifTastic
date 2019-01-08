@@ -8,7 +8,6 @@ function alertData() {
 }
 
 function renderButtons() {
-
   // Deleting the movie topics to adding new topics
   $("#buttons-view").empty();
 
@@ -16,13 +15,10 @@ function renderButtons() {
   for (var i = 0; i < topics.length; i++) {
 
     var a = $("<button>");
-    // Adding a class of movie to our button
+
     a.addClass("movie");
-    // Adding a data-attribute
     a.attr("data-movie", topics[i]);
-    // Providing the initial button text
     a.text(topics[i]);
-    // Adding the button to the HTML
     $("#buttons-view").append(a);
   }
 }
@@ -30,11 +26,10 @@ function renderButtons() {
 // This function handles events where one button is clicked
 $("#add-movie").on("click", function (event) {
   event.preventDefault();
-  // This line grabs the input from the textbox
+
   var movie = $("#movie-input").val().trim();
 
   topics.push(movie);
-
   renderButtons();
 
 });
@@ -48,9 +43,9 @@ renderButtons();
 $(document).on("click", ".movie", function () {
 
   var movies = $(this).attr("data-movie");
+
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    movies +
-    "&api_key=rqTcmyEArNSNEVTWJiZXhHVD0wNnciIQ&limit=10";
+    movies + "&api_key=rqTcmyEArNSNEVTWJiZXhHVD0wNnciIQ&limit=10";
   // Performing an AJAX request with the queryURL
   $.ajax({
       url: queryURL,
@@ -59,6 +54,9 @@ $(document).on("click", ".movie", function () {
 
     // After data comes back from the request
     .then(function (response) {
+
+
+      
       console.log(queryURL);
 
       console.log(response);
@@ -70,9 +68,7 @@ $(document).on("click", ".movie", function () {
 
 
         var movieDiv = $("<div class='dyn-div'>");
-
         var p = $("<p>").text("Rating: " + results[i].rating);
-
         var movieImage = $("<img>");
         // Setting the src attribute of the image
         movieImage.attr("src", results[i].images.fixed_height.url);
@@ -84,15 +80,16 @@ $(document).on("click", ".movie", function () {
         // Appending the paragraph and image tag to the movieDiv
         movieDiv.append(p);
         movieDiv.append(movieImage);
-    
-        $("#gifs-appear-here").prepend(movieDiv);
+
+        $("#gifs").prepend(movieDiv);
 
 
       }
     });
 });
 
-$("#movie-input").empty();
+
+
 $(document).on("click", ".dyn-div", function () {
 
   var image = $(this).find("img")
@@ -100,7 +97,6 @@ $(document).on("click", ".dyn-div", function () {
   console.log(image)
   // If the clicked image's state is still, update its src attribute to what its data-animate value is.
   if (state === "still") {
-    
     image.attr("src", image.attr("data-animate"));
     image.attr("data-state", "animate");
   } else {
@@ -111,6 +107,5 @@ $(document).on("click", ".dyn-div", function () {
 
   }
 
-
-
 });
+$("#movie-input").val();

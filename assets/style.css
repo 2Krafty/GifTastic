@@ -1,6 +1,9 @@
-button,
-    div,
-    form,
-    input {
-      margin: 10px;
-    }
+
+
+body {
+  background-color: black;
+}
+h1, div{
+  color: red;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
